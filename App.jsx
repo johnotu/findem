@@ -41,8 +41,6 @@ class Query extends React.Component{
         let category = this.refs.category.value;
         let query = this.refs.query.value;
 
-        //this.props.data(query + ' && ' + category);
-
         let url = '';
         switch(category){
             case 'emailAddress':
