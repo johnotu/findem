@@ -9,8 +9,9 @@
   "author": "@john_otu",
   "license": "ISC",
   "dependencies": {
+    "axios": "^0.16.1",
     "bootstrap": "^3.3.7",
-    "path": "^0.12.7",
+    "node-fetch": "^1.6.3",
     "react": "^15.5.4",
     "react-bootstrap": "^0.31.0",
     "react-dom": "^15.5.4",

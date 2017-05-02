@@ -1,27 +1,30 @@
 import React from 'react';
 import styles from './App.css';
-const request = require('request');
+const axios = require('axios');
+
+
 
 class App extends React.Component{
     constructor(props){
         super(props);
 
         this.state = {
-            data: "New result"
+            data: "Results will be displayed here ..."
         };
 
         this.newValue = this.newValue.bind(this);
     }
 
     newValue(data){
-        this.setState(data);
+        
+        this.setState({data: data});
     }
 
     render(){
         return(
             <div>
-                <Query/>
-                <Display newValue={this.newValue}/>
+                <Query data={this.newValue}/>
+                <Display newValue={this.state.data}/>
             </div>
         );
     }
@@ -36,64 +39,51 @@ class Query extends React.Component{
     handleSubmit(e){
         e.preventDefault();
         let category = this.refs.category.value;
-        let query = this.refs.queryText.value;
+        let query = this.refs.query.value;
+
+        //this.props.data(query + ' && ' + category);
 
         let url = '';
         switch(category){
             case 'emailAddress':
-                url = 'https://api.fullcontact.com/v2/person.html?email=' + query;
+                url = 'https://api.fullcontact.com/v2/person.html?email=' + query + '&apiKey=37c1e2a9d8493108';
                 break;
             case 'twitterHandle':
-                url = 'https://api.fullcontact.com/v2/person.html?twitter=' + query;
+                url = 'https://api.fullcontact.com/v2/person.html?twitter=' + query + '&apiKey=37c1e2a9d8493108';
                 break;
             case 'phoneNumber':
-                url = 'https://api.fullcontact.com/v2/person.html?phone=' + query;
+                url = 'https://api.fullcontact.com/v2/person.html?phone=' + query + '&apiKey=37c1e2a9d8493108';
                 break;
         }
 
-        const headers = {
-             'X-FullContact-APIKey': '37c1e2a9d8493108'
-        };
-
-        let options = {
-            url: url,
-            headers: headers
-        }
-
-        let callback = (error, response, body) => {
-            if(!error && response.statusCode == 200){
-                this.props.newValue(body);
-            }
-        }
-
-        request(options, callback);
+        axios.get(url)
+            .then((resp) => {
+                this.props.data(resp.data);
+            })
+            .catch(err => {
+                console.log(err);
+            });
     }
 
     render(){
         return(
-            <div>
-                <h3>Input Query here</h3>
-                <div className="container">
-                    <div className="row">
-                        <div className="col-sm-8 col-md-8">
-                            
-                        
-                       
-                            <form onSubmit={this.handleSubmit}>
-                                <select id="dropdown" ref="category">
-                                    <option value="emailAddress">Email</option>
-                                    <option value="twitterHandle">Twitter Handle</option>
-                                    <option value="phoneNumber">Phone Number</option>
-                                </select>
-                                
-                                <input type="text" ref="query" placeholder="Enter email | Twitter handle | phone number"/>
-                                <button className="btn btn-primary">Find'em</button>
-                            </form>
-                        
-                            
-                        </div>
+            <div>       
+                <form className="" onSubmit={this.handleSubmit}>
+                    <div className="form-group">
+                        <label htmlFor="dropdown">Select a category of contact</label>
+                        <select id="dropdown" ref="category" className="form-control">
+                            <option value="emailAddress">Email</option>
+                            <option value="twitterHandle">Twitter Handle</option>
+                            <option value="phoneNumber">Phone Number</option>
+                        </select>
                     </div>
-                </div>
+                    <div className="form-group">
+                        <label htmlFor="input">Enter a contact to find</label>
+                        <input type="text" ref="query" placeholder="Enter query item here" className="form-control" id="input"/>
+                    </div>
+                    <button className="btn btn-primary">Find'em</button>
+                </form>
+                <br/><hr/>    
             </div>
         );
     }
@@ -103,7 +93,9 @@ class Display extends React.Component{
     render(){
         return(
             <div>
-                {this.props.data}
+                <div className="embed-responsive embed-responsive-4by3">
+                    <iframe className="embed-responsive-item" srcDoc={this.props.newValue}></iframe>
+                </div>
             </div>
         );
     }
