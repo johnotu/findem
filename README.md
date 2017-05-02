@@ -12,7 +12,7 @@ On the terminal:
 * open browser at `http://localhost:7000/`
 
 ## Team Credits
-[Jerry Yang](https://github.com/imjerryyang) -- _Instructor_
-[Nancy Ewurum](https://github.com/nancee1)
-[Ugochukwu Onyejiaka](https://github.com/ugofred)
+[Jerry Yang](https://github.com/imjerryyang) -- _Instructor_,
+[Nancy Ewurum](https://github.com/nancee1),
+[Ugochukwu Onyejiaka](https://github.com/ugofred) and
 [John Otu](https://github.com/johnotu)
