@@ -5,6 +5,13 @@ You only need to have either an email, Twitter handle or phone number to find an
 It is a class project built with [React](https://facebook.github.io/react/) and [Bootstrap](http://getbootstrap.com/) and uses [Full Contact API](https://support.fullcontact.com/hc/en-us) to find social media profiles and [Klout](https://klout.com/home) data.
 
 ## To run locally
+Required:
+Babel plugins. You can skip if you already have them.
+* Babel Core `npm install babel-core`
+* Babel Loader `npm install babel-loader`
+* Babel Preset React `npm install babel-preset-react`
+* Babel Preset ES2015 `npm install babel-preset-es2015`
+
 On the terminal:
 * clone repo and `cd` into root directory
 * `npm install` to install dependencies
